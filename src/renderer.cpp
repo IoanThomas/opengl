@@ -13,7 +13,7 @@
 #include <iostream>
 
 renderer::renderer()
-	: m_shader("entity.vert", "entity.frag")
+	: m_shader("data/shaders/entity.vert", "data/shaders/entity.frag")
 {
 }
 
@@ -67,9 +67,9 @@ void renderer::render()
 
 void renderer::load_model(const std::string& path)
 {
-	auto vao = model_loader::load_vao(path + ".obj");
-	const auto texture = m_textures.load_texture(path + ".png");
-	const auto texture2 = m_textures.load_texture(path + "_spec.png");
+	auto vao = model_loader::load_vao("data/models/" + path + "/" + path + ".obj");
+	const auto texture = m_textures.load_texture("data/models/" + path + "/" + path + ".png");
+	const auto texture2 = m_textures.load_texture("data/models/" + path + "/" + path + "_spec.png");
 
 	material material(texture, texture2, 128.0f);
 

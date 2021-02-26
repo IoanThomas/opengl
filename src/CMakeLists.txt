@@ -40,7 +40,7 @@ set_target_properties(opengl
     PROPERTIES
         CXX_EXTENSIONS OFF
         RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/"
-)
+        VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:opengl>")
 target_link_libraries(opengl PRIVATE glfw)
 target_include_directories(opengl PRIVATE
     "${PROJECT_SOURCE_DIR}/extern/glad/include"
