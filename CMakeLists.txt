@@ -5,4 +5,5 @@ project(OpenGL
     DESCRIPTION "OpenGL test project"
     LANGUAGES CXX)
 
+add_subdirectory(extern)
 add_subdirectory(src)
