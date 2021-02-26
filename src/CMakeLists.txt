@@ -47,6 +47,7 @@ target_include_directories(opengl PRIVATE
     "${PROJECT_SOURCE_DIR}/extern/glfw/include"
     "${PROJECT_SOURCE_DIR}/extern/glm")
 
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT opengl)
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCE_FILES})
 
 add_custom_command(TARGET opengl POST_BUILD
