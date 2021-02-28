@@ -19,7 +19,7 @@ entity& entity_renderer::create_entity(const std::string& model_name)
 	// TODO: Cache model
 	auto vao = model_loader::load_vao("data/models/" + model_name + '/' + model_name + ".obj");
 	const auto diffuse_texture = m_textures.load_texture("data/models/" + model_name + '/' + model_name + ".png");
-	const auto specular_texture = m_textures.load_texture("data/models/" + model_name + '/' + model_name + "_spec.png");
+	const auto specular_texture = m_textures.load_texture("data/models/" + model_name + '/' + model_name + "_se.png");
 
 	material material(diffuse_texture, specular_texture, 128.0f);
 
@@ -38,7 +38,7 @@ void entity_renderer::render(const camera& camera)
 	m_shader.set_uniform<glm::vec3>("viewer_position", camera.get_position());
 
 	// TODO: Create light object
-	m_shader.set_uniform<glm::vec3>("sun.position", glm::vec3(1.2f, 1.0f, 2.0f));
+	m_shader.set_uniform<glm::vec3>("sun.position", glm::vec3(0.0f, 1.0f, 0.0f));
 	m_shader.set_uniform<glm::vec3>("sun.ambient", glm::vec3(0.2f));
 	m_shader.set_uniform<glm::vec3>("sun.diffuse", glm::vec3(0.5f));
 	m_shader.set_uniform<glm::vec3>("sun.specular", glm::vec3(1.0f));
@@ -53,8 +53,8 @@ void entity_renderer::render(const camera& camera)
 		m_shader.set_uniform<int>("diffuse_texture", 0);
 
 		glActiveTexture(GL_TEXTURE1);
-		material.m_specular->bind();
-		m_shader.set_uniform<int>("specular_texture", 1);
+		material.m_detail->bind();
+		m_shader.set_uniform<int>("detail_texture", 1);
 
 		m_shader.set_uniform<float>("shininess", material.m_shininess);
 
