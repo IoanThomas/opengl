@@ -37,6 +37,7 @@ void entity_renderer::render(const camera& camera)
 	m_shader.set_uniform<glm::mat4>("view", camera.get_view_matrix());
 	m_shader.set_uniform<glm::vec3>("viewer_position", camera.get_position());
 
+	// TODO: Create light object
 	m_shader.set_uniform<glm::vec3>("sun.position", glm::vec3(1.2f, 1.0f, 2.0f));
 	m_shader.set_uniform<glm::vec3>("sun.ambient", glm::vec3(0.2f));
 	m_shader.set_uniform<glm::vec3>("sun.diffuse", glm::vec3(0.5f));
