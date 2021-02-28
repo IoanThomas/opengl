@@ -39,24 +39,24 @@ void glfw_mouse_callback(GLFWwindow* window, const double pos_x, const double po
 {
 	if (first_mouse)
 	{
-		last_x = pos_x;
-		last_y = pos_y;
+		last_x = static_cast<float>(pos_x);
+		last_y = static_cast<float>(pos_y);
 
 		first_mouse = false;
 	}
 
-	const auto offset_x = pos_x - last_x;
-	const auto offset_y = last_y - pos_y;
+	const auto offset_x = static_cast<float>(pos_x) - last_x;
+	const auto offset_y = last_y - static_cast<float>(pos_y);
 
-	last_x = pos_x;
-	last_y = pos_y;
+	last_x = static_cast<float>(pos_x);
+	last_y = static_cast<float>(pos_y);
 
 	cam.process_mouse_movement(offset_x, offset_y);
 }
 
 void glfw_scroll_callback(GLFWwindow* window, const double offset_x, const double offset_y)
 {
-	cam.process_mouse_scroll(offset_y);
+	cam.process_mouse_scroll(static_cast<float>(offset_y));
 }
 
 void process_input(GLFWwindow* window)
@@ -144,7 +144,7 @@ int main()
 
 	while (!glfwWindowShouldClose(window))
 	{
-		const float current_time = glfwGetTime();
+		const float current_time = static_cast<float>(glfwGetTime());
 		delta_time = current_time - last_frame;
 		last_frame = current_time;
 

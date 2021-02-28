@@ -22,10 +22,10 @@ gl::vertex_array::vertex_array(const std::shared_ptr<element_buffer> ebo, const 
 	{
 		glEnableVertexAttribArray(i);
 		glVertexAttribPointer(i,
-			attribute.component_count(),
+			static_cast<GLint>(attribute.component_count()),
 			data_type_to_opengl_type(attribute.get_type()),
 			attribute.is_normalised() ? GL_TRUE : GL_FALSE,
-			m_vbo_layout.stride(),
+			static_cast<GLsizei>(m_vbo_layout.stride()),
 			reinterpret_cast<void*>(offset));
 
 		offset += attribute.size();

@@ -98,7 +98,7 @@ void model_loader::process_vertex(const std::vector<std::string>& vertex_str, st
 	}
 
 	const auto index = std::distance(vertices.cbegin(), std::find(vertices.cbegin(), vertices.cend(), vertex));
-	indices.push_back(index);
+	indices.push_back(static_cast<unsigned int>(index));
 }
 
 std::vector<std::string> model_loader::split_string(const std::string& string, const char delimiter)

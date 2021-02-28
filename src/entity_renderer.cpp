@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include <glad/glad.h>
+
 #include "material.h"
 #include "model_loader.h"
 #include "opengl/texture.h"
@@ -29,6 +31,7 @@ void entity_renderer::render(const camera& camera)
 {
 	m_shader.bind();
 
+	// TODO: Move projection matrix somewhere else (camera?)
 	const auto projection = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
 	m_shader.set_uniform<glm::mat4>("projection", projection);
 	m_shader.set_uniform<glm::mat4>("view", camera.get_view_matrix());
@@ -63,7 +66,7 @@ void entity_renderer::render(const camera& camera)
 
 			//const auto i = vao.index_count();
 
-			glDrawElements(GL_TRIANGLES, vao.index_count(), GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(vao.index_count()), GL_UNSIGNED_INT, nullptr);
 		}
 
 
