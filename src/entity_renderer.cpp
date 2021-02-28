@@ -10,28 +10,19 @@
 entity_renderer::entity_renderer()
 	: m_shader("data/shaders/entity.vert", "data/shaders/entity.frag")
 {
-	const std::string path = "sword";
+}
 
-	auto vao = model_loader::load_vao("data/models/" + path + "/" + path + ".obj");
-	const auto texture = m_textures.load_texture("data/models/" + path + "/" + path + ".png");
-	const auto texture2 = m_textures.load_texture("data/models/" + path + "/" + path + "_spec.png");
+entity& entity_renderer::create_entity(const std::string& model_name)
+{
+	// TODO: Cache model
+	auto vao = model_loader::load_vao("data/models/" + model_name + '/' + model_name + ".obj");
+	const auto diffuse_texture = m_textures.load_texture("data/models/" + model_name + '/' + model_name + ".png");
+	const auto specular_texture = m_textures.load_texture("data/models/" + model_name + '/' + model_name + "_spec.png");
 
-	material material(texture, texture2, 128.0f);
+	material material(diffuse_texture, specular_texture, 128.0f);
 
-	auto mod = std::make_shared<model>(std::move(vao), material);
-
-	entity e;
-	//e.position = glm::vec3(1.0f, 0.0f, -1.0f);
-	e.position = glm::vec3(0.0f, 0.0f, -1.0f);
-	e.scale = glm::vec3(0.2f);
-
-	entity e2;
-	//e.position = glm::vec3(1.0f, 0.0f, -1.0f);
-	e2.position = glm::vec3(0.0f, 0.0f, -1.5f);
-	e2.rotation = glm::vec3(0.0f, 0.0f, 45.0f);
-	e2.scale = glm::vec3(0.2f);
-
-	m_entities[mod] = { e, e2 };
+	const auto mod = std::make_shared<model>(std::move(vao), material);
+	return m_entities[mod].emplace_back();
 }
 
 void entity_renderer::render(const camera& camera)

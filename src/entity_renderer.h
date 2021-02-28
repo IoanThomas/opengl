@@ -2,6 +2,7 @@
 
 #include <map>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "camera.h"
@@ -15,6 +16,8 @@ class entity_renderer : public renderer
 {
 public:
 	entity_renderer();
+
+	entity& create_entity(const std::string& model_name);
 
 	void render(const camera& camera);
 

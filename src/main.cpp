@@ -135,7 +135,12 @@ int main()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	entity_renderer renderer;
-	//renderer.load_model("sword");
+	auto& sword_entity = renderer.create_entity("sword");
+	auto& sword_entity2 = renderer.create_entity("sword");
+
+	sword_entity.scale = glm::vec3(0.1f);
+	sword_entity2.scale = glm::vec3(0.1f);
+	sword_entity2.position = glm::vec3(1.0f, 0.0f, 0.0f);
 
 	while (!glfwWindowShouldClose(window))
 	{
