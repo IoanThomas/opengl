@@ -14,7 +14,7 @@
 #include "opengl/vertex_array.h"
 #include "opengl/vertex_buffer.h"
 
-#include "renderer.h"
+#include "entity_renderer.h"
 #include "texture_cache.h"
 
 static camera cam(glm::vec3(0.0f, 0.0f, 3.0f), -90.0f, 0.0f);
@@ -134,8 +134,8 @@ int main()
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	renderer renderer;
-	renderer.load_model("sword");
+	entity_renderer renderer;
+	//renderer.load_model("sword");
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -146,8 +146,7 @@ int main()
 		process_input(window);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		renderer.set(cam);
-		renderer.render();
+		renderer.render(cam);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

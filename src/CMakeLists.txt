@@ -19,6 +19,8 @@ set(SOURCE_FILES
     camera_movement.h
     entity.cpp
     entity.h
+    entity_renderer.cpp
+    entity_renderer.h
     glad.c
     main.cpp
     material.cpp
@@ -27,8 +29,9 @@ set(SOURCE_FILES
     model.h
     model_loader.cpp
     model_loader.h
-    renderer.cpp
     renderer.h
+    scene.cpp
+    scene.h
     stb_image.cpp
     stb_image.h
     texture_cache.cpp

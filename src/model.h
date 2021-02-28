@@ -6,9 +6,10 @@
 class model
 {
 public:
-	friend class renderer;
-
 	model(gl::vertex_array vao, const material& material);
+
+	gl::vertex_array& get_vao() { return m_vao; }
+	material& get_material() { return m_material; }
 
 private:
 	gl::vertex_array m_vao;

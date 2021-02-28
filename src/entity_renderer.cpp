@@ -1,30 +1,47 @@
-#include "renderer.h"
+#include "entity_renderer.h"
 
-#include <utility>
-
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <string>
 
 #include "material.h"
 #include "model_loader.h"
 #include "opengl/texture.h"
+#include "opengl/vertex_array.h"
 
-#include <iostream>
-
-renderer::renderer()
+entity_renderer::entity_renderer()
 	: m_shader("data/shaders/entity.vert", "data/shaders/entity.frag")
 {
+	const std::string path = "sword";
+
+	auto vao = model_loader::load_vao("data/models/" + path + "/" + path + ".obj");
+	const auto texture = m_textures.load_texture("data/models/" + path + "/" + path + ".png");
+	const auto texture2 = m_textures.load_texture("data/models/" + path + "/" + path + "_spec.png");
+
+	material material(texture, texture2, 128.0f);
+
+	auto mod = std::make_shared<model>(std::move(vao), material);
+
+	entity e;
+	//e.position = glm::vec3(1.0f, 0.0f, -1.0f);
+	e.position = glm::vec3(0.0f, 0.0f, -1.0f);
+	e.scale = glm::vec3(0.2f);
+
+	entity e2;
+	//e.position = glm::vec3(1.0f, 0.0f, -1.0f);
+	e2.position = glm::vec3(0.0f, 0.0f, -1.5f);
+	e2.rotation = glm::vec3(0.0f, 0.0f, 45.0f);
+	e2.scale = glm::vec3(0.2f);
+
+	m_entities[mod] = { e, e2 };
 }
 
-void renderer::render()
+void entity_renderer::render(const camera& camera)
 {
 	m_shader.bind();
 
 	const auto projection = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
 	m_shader.set_uniform<glm::mat4>("projection", projection);
-	m_shader.set_uniform<glm::mat4>("view", m_camera.get_view_matrix());
-	m_shader.set_uniform<glm::vec3>("viewer_position", m_camera.get_position());
+	m_shader.set_uniform<glm::mat4>("view", camera.get_view_matrix());
+	m_shader.set_uniform<glm::vec3>("viewer_position", camera.get_position());
 
 	m_shader.set_uniform<glm::vec3>("sun.position", glm::vec3(1.2f, 1.0f, 2.0f));
 	m_shader.set_uniform<glm::vec3>("sun.ambient", glm::vec3(0.2f));
@@ -33,8 +50,8 @@ void renderer::render()
 
 	for (const auto& entity_batch : m_entities)
 	{
-		const auto& vao = entity_batch.first->m_vao;
-		const auto& material = entity_batch.first->m_material;
+		const auto& vao = entity_batch.first->get_vao();
+		const auto& material = entity_batch.first->get_material();
 
 		glActiveTexture(GL_TEXTURE0);
 		material.m_diffuse->bind();
@@ -63,28 +80,4 @@ void renderer::render()
 	}
 
 	m_shader.unbind();
-}
-
-void renderer::load_model(const std::string& path)
-{
-	auto vao = model_loader::load_vao("data/models/" + path + "/" + path + ".obj");
-	const auto texture = m_textures.load_texture("data/models/" + path + "/" + path + ".png");
-	const auto texture2 = m_textures.load_texture("data/models/" + path + "/" + path + "_spec.png");
-
-	material material(texture, texture2, 128.0f);
-
-	auto mod = std::make_shared<model>(std::move(vao), material);
-
-	entity e;
-	//e.position = glm::vec3(1.0f, 0.0f, -1.0f);
-	e.position = glm::vec3(0.0f, 0.0f, -1.0f);
-	e.scale = glm::vec3(0.2f);
-
-	entity e2;
-	//e.position = glm::vec3(1.0f, 0.0f, -1.0f);
-	e2.position = glm::vec3(0.0f, 0.0f, -1.5f);
-	e2.rotation = glm::vec3(0.0f, 0.0f, 45.0f);
-	e2.scale = glm::vec3(0.2f);
-
-	m_entities[mod] = {e, e2};
 }
