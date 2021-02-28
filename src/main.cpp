@@ -136,16 +136,18 @@ int main()
 
 	entity_renderer renderer;
 	auto& sword_entity = renderer.create_entity("sword");
-	auto& sword_entity2 = renderer.create_entity("sword");
 	auto& phone_entity = renderer.create_entity("phone");
+	auto& lantern_entity = renderer.create_entity("lantern");
 
 	sword_entity.scale = glm::vec3(0.1f);
-	sword_entity2.scale = glm::vec3(0.1f);
-	phone_entity.scale = glm::vec3(0.25f);
 	sword_entity.position = glm::vec3(-1.0f, 0.0f, 0.0f);
-	sword_entity2.position = glm::vec3(1.0f, 0.0f, 0.0f);
+
+	phone_entity.scale = glm::vec3(0.25f);
 	phone_entity.position = glm::vec3(0.0f, 0.0f, 0.0f);
 	phone_entity.rotation.x = 90.0f;
+
+	lantern_entity.scale = glm::vec3(0.5f);
+	lantern_entity.position = glm::vec3(1.0f, 0.0f, 0.0f);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -156,7 +158,7 @@ int main()
 		process_input(window);
 
 		sword_entity.rotation.x += (delta_time * 100.0f);
-		sword_entity2.rotation.y += (delta_time * 100.0f);
+		lantern_entity.rotation.y += (delta_time * 50.0f);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		renderer.render(cam);
