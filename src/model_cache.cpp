@@ -1,8 +1,7 @@
-#include "model_loader.h"
+#include "model_cache.h"
 
 #include <algorithm>
 #include <fstream>
-#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <utility>
@@ -13,8 +12,31 @@
 #include "opengl/buffer_layout.h"
 #include "opengl/element_buffer.h"
 #include "opengl/vertex_buffer.h"
+#include "material.h"
 
-gl::vertex_array model_loader::load_vao(const std::string& path)
+std::shared_ptr<model> model_cache::load_model(texture_cache& textures, const std::string& model_name)
+{
+	if (m_models.find(model_name) != m_models.cend())
+	{
+		return m_models[model_name];
+	}
+
+	const auto model_path = "data/models/" + model_name + '/' + model_name;
+
+	auto vao = load_vao(model_path + ".obj");
+	const auto diffuse_texture = textures.load_texture(model_path + ".png");
+	const auto detail_texture = textures.load_texture(model_path + "_se.png");
+
+	// TODO: Load shininess from file
+	const material material(diffuse_texture, detail_texture, 32.0f);
+	const auto mod = std::make_shared<model>(std::move(vao), material);
+
+	m_models[model_name] = mod;
+
+	return mod;
+}
+
+gl::vertex_array model_cache::load_vao(const std::string& path)
 {
 	std::ifstream file_stream(path);
 	if (!file_stream)
@@ -84,7 +106,7 @@ gl::vertex_array model_loader::load_vao(const std::string& path)
 	return gl::vertex_array(ebo, vbo, layout);
 }
 
-void model_loader::process_vertex(const std::vector<std::string>& vertex_str, std::vector<vertex>& vertices, std::vector<unsigned int>& indices)
+void model_cache::process_vertex(const std::vector<std::string>& vertex_str, std::vector<vertex>& vertices, std::vector<unsigned int>& indices)
 {
 	vertex vertex;
 	vertex.position_index = static_cast<unsigned int>(std::stoi(vertex_str[0])) - 1;
@@ -101,7 +123,7 @@ void model_loader::process_vertex(const std::vector<std::string>& vertex_str, st
 	indices.push_back(static_cast<unsigned int>(index));
 }
 
-std::vector<std::string> model_loader::split_string(const std::string& string, const char delimiter)
+std::vector<std::string> model_cache::split_string(const std::string& string, const char delimiter)
 {
 	std::vector<std::string> components;
 	std::stringstream ss(string);

@@ -27,8 +27,8 @@ set(SOURCE_FILES
     material.h
     model.cpp
     model.h
-    model_loader.cpp
-    model_loader.h
+    model_cache.cpp
+    model_cache.h
     renderer.h
     scene.cpp
     scene.h

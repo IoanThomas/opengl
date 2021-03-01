@@ -9,7 +9,7 @@
 
 #include "opengl/shader.h"
 
-#include "model_loader.h"
+#include "model_cache.h"
 #include "camera.h"
 #include "opengl/vertex_array.h"
 #include "opengl/vertex_buffer.h"
@@ -129,6 +129,7 @@ int main()
 	std::cout << "OpenGL Vendor: " << glGetString(GL_VENDOR) << '\n';
 
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	//glClearColor(0.03f, 0.03f, 0.03f, 1.0f);
 
 	glEnable(GL_DEPTH_TEST);
 

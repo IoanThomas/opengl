@@ -8,6 +8,7 @@
 #include "camera.h"
 #include "entity.h"
 #include "model.h"
+#include "model_cache.h"
 #include "opengl/shader.h"
 #include "renderer.h"
 #include "texture_cache.h"
@@ -22,6 +23,7 @@ public:
 	void render(const camera& camera);
 
 private:
+	model_cache m_models;
 	texture_cache m_textures;
 
 	gl::shader m_shader;

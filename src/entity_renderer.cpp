@@ -5,7 +5,6 @@
 #include <glad/glad.h>
 
 #include "material.h"
-#include "model_loader.h"
 #include "opengl/texture.h"
 #include "opengl/vertex_array.h"
 
@@ -16,15 +15,9 @@ entity_renderer::entity_renderer()
 
 entity& entity_renderer::create_entity(const std::string& model_name)
 {
-	// TODO: Cache model
-	auto vao = model_loader::load_vao("data/models/" + model_name + '/' + model_name + ".obj");
-	const auto diffuse_texture = m_textures.load_texture("data/models/" + model_name + '/' + model_name + ".png");
-	const auto specular_texture = m_textures.load_texture("data/models/" + model_name + '/' + model_name + "_se.png");
+	const auto model = m_models.load_model(m_textures, model_name);
 
-	material material(diffuse_texture, specular_texture, 128.0f);
-
-	const auto mod = std::make_shared<model>(std::move(vao), material);
-	return m_entities[mod].emplace_back();
+	return m_entities[model].emplace_back();
 }
 
 void entity_renderer::render(const camera& camera)
@@ -39,7 +32,9 @@ void entity_renderer::render(const camera& camera)
 
 	// TODO: Create light object
 	m_shader.set_uniform<glm::vec3>("sun.position", glm::vec3(0.0f, 1.0f, 0.0f));
-	m_shader.set_uniform<glm::vec3>("sun.ambient", glm::vec3(0.2f));
+	//m_shader.set_uniform<glm::vec3>("sun.ambient", glm::vec3(0.05f, 0.02f, 0.01f));
+	//m_shader.set_uniform<glm::vec3>("sun.diffuse", glm::vec3(0.46f, 0.3f, 0.05f));
+	m_shader.set_uniform<glm::vec3>("sun.ambient", glm::vec3(0.1f));
 	m_shader.set_uniform<glm::vec3>("sun.diffuse", glm::vec3(0.5f));
 	m_shader.set_uniform<glm::vec3>("sun.specular", glm::vec3(1.0f));
 
@@ -63,9 +58,6 @@ void entity_renderer::render(const camera& camera)
 		for (const auto& entity : entity_batch.second)
 		{
 			m_shader.set_uniform<glm::mat4>("model", entity.get_transformation_matrix());
-			//m_shader.set_uniform<glm::mat4>("model", glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, -1.0f)));
-
-			//const auto i = vao.index_count();
 
 			glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(vao.index_count()), GL_UNSIGNED_INT, nullptr);
 		}
