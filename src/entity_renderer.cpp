@@ -1,7 +1,5 @@
 #include "entity_renderer.h"
 
-#include <string>
-
 #include <glad/glad.h>
 
 #include "material.h"
@@ -20,7 +18,7 @@ entity& entity_renderer::create_entity(const std::string& model_name, const glm:
 	return m_entities[model].emplace_back(position);
 }
 
-void entity_renderer::render(const camera& camera, const std::vector<point_light>& lights)
+void entity_renderer::render(const camera& camera, const std::vector<light>& lights)
 {
 	m_shader.bind();
 

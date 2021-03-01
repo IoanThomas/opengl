@@ -12,7 +12,7 @@
 #include "model.h"
 #include "model_cache.h"
 #include "opengl/shader.h"
-#include "point_light.h"
+#include "light.h"
 #include "renderer.h"
 #include "texture_cache.h"
 
@@ -23,7 +23,7 @@ public:
 
 	entity& create_entity(const std::string& model_name, const glm::vec3& position);
 
-	void render(const camera& camera, const std::vector<point_light>& lights);
+	void render(const camera& camera, const std::vector<light>& lights);
 
 private:
 	model_cache m_models;

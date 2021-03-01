@@ -21,6 +21,8 @@ set(SOURCE_FILES
     entity_renderer.cpp
     entity_renderer.h
     glad.c
+    light.cpp
+    light.h
     main.cpp
     material.cpp
     material.h
@@ -28,8 +30,6 @@ set(SOURCE_FILES
     model.h
     model_cache.cpp
     model_cache.h
-    point_light.cpp
-    point_light.h
     renderer.h
     scene.cpp
     scene.h

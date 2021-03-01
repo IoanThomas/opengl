@@ -137,7 +137,7 @@ int main()
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	std::vector<point_light> lights;
+	std::vector<light> lights;
 
 	entity_renderer renderer;
 	auto& sword_entity = renderer.create_entity("sword", glm::vec3(-1.0f, 0.0f, 0.0f));
