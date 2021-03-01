@@ -33,6 +33,7 @@ void glfw_error_callback(const int error, const char* description)
 void glfw_resize_callback(GLFWwindow* window, const int width, const int height)
 {
 	glViewport(0, 0, width, height);
+	cam.process_window_resized(width, height);
 }
 
 void glfw_mouse_callback(GLFWwindow* window, const double pos_x, const double pos_y)

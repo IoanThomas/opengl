@@ -71,6 +71,13 @@ void camera::process_mouse_scroll(const float offset_y)
 	update_projection();
 }
 
+void camera::process_window_resized(const unsigned int window_width, const unsigned int window_height)
+{
+	m_window_width = window_width;
+	m_window_height = window_height;
+	update_projection();
+}
+
 glm::mat4 camera::get_view_matrix() const
 {
 	return glm::lookAt(m_position, m_position + m_front, m_up);
