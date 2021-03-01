@@ -81,18 +81,18 @@ gl::vertex_array model_cache::load_vao(const std::string& path)
 		}
 	}
 
-	for (const auto& f : vertices)
+	for (const auto& vertex : vertices)
 	{
-		vertex_data.push_back(positions.at(f.position_index).x);
-		vertex_data.push_back(positions.at(f.position_index).y);
-		vertex_data.push_back(positions.at(f.position_index).z);
+		vertex_data.push_back(positions.at(vertex.position_index).x);
+		vertex_data.push_back(positions.at(vertex.position_index).y);
+		vertex_data.push_back(positions.at(vertex.position_index).z);
 
-		vertex_data.push_back(textures.at(f.texture_index).x);
-		vertex_data.push_back(textures.at(f.texture_index).y);
+		vertex_data.push_back(textures.at(vertex.texture_index).x);
+		vertex_data.push_back(textures.at(vertex.texture_index).y);
 
-		vertex_data.push_back(normals.at(f.normal_index).x);
-		vertex_data.push_back(normals.at(f.normal_index).y);
-		vertex_data.push_back(normals.at(f.normal_index).z);
+		vertex_data.push_back(normals.at(vertex.normal_index).x);
+		vertex_data.push_back(normals.at(vertex.normal_index).y);
+		vertex_data.push_back(normals.at(vertex.normal_index).z);
 	}
 
 	const auto ebo = std::make_shared<gl::element_buffer>(indices);
@@ -117,16 +117,20 @@ void model_cache::process_vertex(const std::vector<std::string>& vertex_str, std
 	if (itr == vertices.cend())
 	{
 		vertices.push_back(vertex);
+		indices.push_back(vertices.size() - 1);
 	}
-
-	const auto index = std::distance(vertices.cbegin(), std::find(vertices.cbegin(), vertices.cend(), vertex));
-	indices.push_back(static_cast<unsigned int>(index));
+	else
+	{
+		const auto index = std::distance(vertices.cbegin(), itr);
+		indices.push_back(static_cast<unsigned int>(index));
+	}
 }
 
 std::vector<std::string> model_cache::split_string(const std::string& string, const char delimiter)
 {
 	std::vector<std::string> components;
 	components.reserve(4);
+
 	std::stringstream ss(string);
 
 	std::string part;
