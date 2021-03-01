@@ -136,19 +136,16 @@ int main()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	entity_renderer renderer;
-	auto& sword_entity = renderer.create_entity("sword");
-	auto& phone_entity = renderer.create_entity("phone");
-	auto& lantern_entity = renderer.create_entity("lantern");
+	auto& sword_entity = renderer.create_entity("sword", glm::vec3(-1.0f, 0.0f, 0.0f));
+	auto& phone_entity = renderer.create_entity("phone", glm::vec3(0.0f, 0.0f, 0.0f));
+	auto& lantern_entity = renderer.create_entity("lantern", glm::vec3(1.0f, 0.0f, 0.0f));
 
 	sword_entity.scale = glm::vec3(0.1f);
-	sword_entity.position = glm::vec3(-1.0f, 0.0f, 0.0f);
 
 	phone_entity.scale = glm::vec3(0.25f);
-	phone_entity.position = glm::vec3(0.0f, 0.0f, 0.0f);
 	phone_entity.rotation.x = 90.0f;
 
 	lantern_entity.scale = glm::vec3(0.5f);
-	lantern_entity.position = glm::vec3(1.0f, 0.0f, 0.0f);
 
 	while (!glfwWindowShouldClose(window))
 	{

@@ -13,11 +13,11 @@ entity_renderer::entity_renderer()
 {
 }
 
-entity& entity_renderer::create_entity(const std::string& model_name)
+entity& entity_renderer::create_entity(const std::string& model_name, const glm::vec3& position)
 {
 	const auto model = m_models.load_model(m_textures, model_name);
 
-	return m_entities[model].emplace_back();
+	return m_entities[model].emplace_back(position);
 }
 
 void entity_renderer::render(const camera& camera)

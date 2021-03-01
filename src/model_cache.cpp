@@ -117,7 +117,7 @@ void model_cache::process_vertex(const std::vector<std::string>& vertex_str, std
 	if (itr == vertices.cend())
 	{
 		vertices.push_back(vertex);
-		indices.push_back(vertices.size() - 1);
+		indices.push_back(static_cast<unsigned int>(vertices.size() - 1));
 	}
 	else
 	{

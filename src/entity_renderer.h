@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include <glm/glm.hpp>
+
 #include "camera.h"
 #include "entity.h"
 #include "model.h"
@@ -18,7 +20,7 @@ class entity_renderer : public renderer
 public:
 	entity_renderer();
 
-	entity& create_entity(const std::string& model_name);
+	entity& create_entity(const std::string& model_name, const glm::vec3& position);
 
 	void render(const camera& camera);
 
