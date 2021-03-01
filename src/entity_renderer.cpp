@@ -25,18 +25,17 @@ void entity_renderer::render(const camera& camera)
 	m_shader.bind();
 
 	// TODO: Move projection matrix somewhere else (camera?)
-	const auto projection = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
-	m_shader.set_uniform<glm::mat4>("projection", projection);
+	//const auto projection = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
 	m_shader.set_uniform<glm::mat4>("view", camera.get_view_matrix());
-	m_shader.set_uniform<glm::vec3>("viewer_position", camera.get_position());
+	m_shader.set_uniform<glm::mat4>("projection", camera.get_projection_matrix());
 
 	// TODO: Create light object
 	m_shader.set_uniform<glm::vec3>("sun.position", glm::vec3(0.0f, 1.0f, 0.0f));
-	//m_shader.set_uniform<glm::vec3>("sun.ambient", glm::vec3(0.05f, 0.02f, 0.01f));
-	//m_shader.set_uniform<glm::vec3>("sun.diffuse", glm::vec3(0.46f, 0.3f, 0.05f));
 	m_shader.set_uniform<glm::vec3>("sun.ambient", glm::vec3(0.1f));
 	m_shader.set_uniform<glm::vec3>("sun.diffuse", glm::vec3(0.5f));
 	m_shader.set_uniform<glm::vec3>("sun.specular", glm::vec3(1.0f));
+
+	m_shader.set_uniform<glm::vec3>("viewer_position", camera.get_position());
 
 	for (const auto& entity_batch : m_entities)
 	{

@@ -17,7 +17,7 @@
 #include "entity_renderer.h"
 #include "texture_cache.h"
 
-static camera cam(glm::vec3(0.0f, 0.0f, 3.0f), -90.0f, 0.0f);
+static camera cam(glm::vec3(0.0f, 0.0f, 3.0f), 1280, 720);
 static auto last_x = 640.0f;
 static auto last_y = 360.0f;
 static auto first_mouse = true;

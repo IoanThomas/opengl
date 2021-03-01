@@ -4,15 +4,16 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-camera::camera(const glm::vec3& position, const float yaw, const float pitch)
-	: m_position(position), m_yaw(yaw), m_pitch(pitch)
+camera::camera(const glm::vec3& position, const unsigned int window_width, const unsigned int window_height, const float fov)
+	: m_window_width(window_width), m_window_height(window_height), m_position(position), m_fov(fov)
 {
 	update_vectors();
+	update_projection();
 }
 
 void camera::process_keyboard(const movement direction, const float delta_time)
 {
-	const auto velocity = m_speed * delta_time;
+	const auto velocity = speed * delta_time;
 
 	switch (direction)
 	{
@@ -33,8 +34,8 @@ void camera::process_keyboard(const movement direction, const float delta_time)
 
 void camera::process_mouse_movement(const float offset_x, const float offset_y, const bool constrain_pitch)
 {
-	const auto offset_x_relative = offset_x * m_sensitivity;
-	const auto offset_y_relative = offset_y * m_sensitivity;
+	const auto offset_x_relative = offset_x * sensitivity;
+	const auto offset_y_relative = offset_y * sensitivity;
 
 	m_yaw = std::fmod(m_yaw + offset_x_relative, 360.0f);
 	m_pitch += offset_y_relative;
@@ -56,16 +57,18 @@ void camera::process_mouse_movement(const float offset_x, const float offset_y, 
 
 void camera::process_mouse_scroll(const float offset_y)
 {
-	m_zoom -= offset_y;
+	m_fov -= offset_y;
 
-	if (m_zoom < 1.0f)
+	if (m_fov < min_fov)
 	{
-		m_zoom = 1.0f;
+		m_fov = min_fov;
 	}
-	else if (m_zoom > 45.0f)
+	else if (m_fov > max_fov)
 	{
-		m_zoom = 45.0f;
+		m_fov = max_fov;
 	}
+
+	update_projection();
 }
 
 glm::mat4 camera::get_view_matrix() const
@@ -83,4 +86,10 @@ void camera::update_vectors()
 	m_front = glm::normalize(front);
 	m_right = glm::normalize(glm::cross(front, glm::vec3(0.0f, 1.0f, 0.0f)));
 	m_up = glm::normalize(glm::cross(m_right, m_front));
+}
+
+void camera::update_projection()
+{
+	const auto aspect_ratio = static_cast<float>(m_window_width) / m_window_height;
+	m_projection = glm::perspective(glm::radians(m_fov), aspect_ratio, near_plane, far_plane);
 }
