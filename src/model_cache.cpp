@@ -125,7 +125,8 @@ void model_cache::process_vertex(const std::vector<std::string>& vertex_str, std
 
 std::vector<std::string> model_cache::split_string(const std::string& string, const char delimiter)
 {
-	std::vector<std::string> components(4);
+	std::vector<std::string> components;
+	components.reserve(4);
 	std::stringstream ss(string);
 
 	std::string part;
