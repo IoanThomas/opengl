@@ -17,7 +17,6 @@ namespace gl
 		// TODO: Replace paths with source code. Create separate class for loading from files
 		shader(const std::string& vertex_path, const std::string& fragment_path);
 
-		// TODO: Make private
 		void bind();
 		void unbind();
 

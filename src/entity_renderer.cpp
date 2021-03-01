@@ -44,14 +44,14 @@ void entity_renderer::render(const camera& camera)
 		const auto& material = entity_batch.first->get_material();
 
 		glActiveTexture(GL_TEXTURE0);
-		material.m_diffuse->bind();
+		material.get_diffuse_texture().bind();
 		m_shader.set_uniform<int>("diffuse_texture", 0);
 
 		glActiveTexture(GL_TEXTURE1);
-		material.m_detail->bind();
+		material.get_detail_texture().bind();
 		m_shader.set_uniform<int>("detail_texture", 1);
 
-		m_shader.set_uniform<float>("shininess", material.m_shininess);
+		m_shader.set_uniform<float>("shininess", material.get_shininess());
 
 		vao.bind();
 
