@@ -137,6 +137,7 @@ int main()
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	light sun({0.0f, 10.0f, 0.0f});
 	std::vector<light> lights;
 
 	entity_renderer renderer;
@@ -171,7 +172,7 @@ int main()
 		lantern_entity.rotation.y += (delta_time * 50.0f);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		renderer.render(cam, lights);
+		renderer.render(cam, sun, lights);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

@@ -19,11 +19,13 @@
 class entity_renderer : public renderer
 {
 public:
+	static constexpr unsigned int max_lights = 4;
+
 	entity_renderer();
 
 	entity& create_entity(const std::string& model_name, const glm::vec3& position);
 
-	void render(const camera& camera, const std::vector<light>& lights);
+	void render(const camera& camera, const light& sun, const std::vector<light>& lights);
 
 private:
 	model_cache m_models;

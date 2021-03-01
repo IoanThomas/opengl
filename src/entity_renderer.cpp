@@ -9,6 +9,18 @@
 entity_renderer::entity_renderer()
 	: m_shader("data/shaders/entity.vert", "data/shaders/entity.frag")
 {
+	m_shader.bind();
+
+	for (unsigned int i = 0; i < max_lights; ++i)
+	{
+		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].position", glm::vec3(1.0f));
+		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].colour", glm::vec3(0.25f));
+		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].attenuation", glm::vec3(1.0f, 0.0f, 0.0f));
+	}
+
+	m_shader.set_uniform<int>("num_lights", max_lights);
+
+	m_shader.unbind();
 }
 
 entity& entity_renderer::create_entity(const std::string& model_name, const glm::vec3& position)
@@ -18,20 +30,18 @@ entity& entity_renderer::create_entity(const std::string& model_name, const glm:
 	return m_entities[model].emplace_back(position);
 }
 
-void entity_renderer::render(const camera& camera, const std::vector<light>& lights)
+void entity_renderer::render(const camera& camera, const light& sun, const std::vector<light>& lights)
 {
 	m_shader.bind();
 
-	// TODO: Move projection matrix somewhere else (camera?)
-	//const auto projection = glm::perspective(glm::radians(45.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
 	m_shader.set_uniform<glm::mat4>("view", camera.get_view_matrix());
 	m_shader.set_uniform<glm::mat4>("projection", camera.get_projection_matrix());
 
 	// TODO: Create light object
-	m_shader.set_uniform<glm::vec3>("sun.position", glm::vec3(0.0f, 1.0f, 0.0f));
-	m_shader.set_uniform<glm::vec3>("sun.ambient", glm::vec3(0.1f));
-	m_shader.set_uniform<glm::vec3>("sun.diffuse", glm::vec3(0.5f));
-	m_shader.set_uniform<glm::vec3>("sun.specular", glm::vec3(1.0f));
+	//m_shader.set_uniform<glm::vec3>("sun.position", glm::vec3(0.0f, 1.0f, 0.0f));
+	//m_shader.set_uniform<glm::vec3>("sun.ambient", glm::vec3(0.1f));
+	//m_shader.set_uniform<glm::vec3>("sun.diffuse", glm::vec3(0.5f));
+	//m_shader.set_uniform<glm::vec3>("sun.specular", glm::vec3(1.0f));
 
 	m_shader.set_uniform<glm::vec3>("viewer_position", camera.get_position());
 
