@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "camera.h"
+#include "point_light.h"
 #include "renderer.h"
 
 class scene
@@ -17,6 +18,8 @@ public:
 	camera& get_camera() { return m_camera; }
 
 private:
-	camera m_camera;
 	std::vector<std::shared_ptr<renderer>> m_renderers;
+
+	camera m_camera;
+	std::vector<point_light> m_lights;
 };

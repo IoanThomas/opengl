@@ -20,7 +20,7 @@ entity& entity_renderer::create_entity(const std::string& model_name, const glm:
 	return m_entities[model].emplace_back(position);
 }
 
-void entity_renderer::render(const camera& camera)
+void entity_renderer::render(const camera& camera, const std::vector<point_light>& lights)
 {
 	m_shader.bind();
 

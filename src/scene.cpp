@@ -4,7 +4,7 @@ void scene::render()
 {
 	for (const auto& renderer : m_renderers)
 	{
-		renderer->render(m_camera);
+		renderer->render(m_camera, m_lights);
 	}
 }
 

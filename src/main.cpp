@@ -137,6 +137,8 @@ int main()
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	std::vector<point_light> lights;
+
 	entity_renderer renderer;
 	auto& sword_entity = renderer.create_entity("sword", glm::vec3(-1.0f, 0.0f, 0.0f));
 	auto& phone_entity = renderer.create_entity("phone", glm::vec3(0.0f, 0.0f, 0.0f));
@@ -169,7 +171,7 @@ int main()
 		lantern_entity.rotation.y += (delta_time * 50.0f);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		renderer.render(cam);
+		renderer.render(cam, lights);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
