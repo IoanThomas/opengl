@@ -18,12 +18,12 @@
 #include "texture_cache.h"
 
 static camera cam(glm::vec3(0.0f, 0.0f, 3.0f), -90.0f, 0.0f);
-static float last_x = 640;
-static float last_y = 360;
-bool first_mouse = true;
+static auto last_x = 640.0f;
+static auto last_y = 360.0f;
+static auto first_mouse = true;
 
-static float delta_time = 0.0f;
-static float last_frame = 0.0f;
+static auto delta_time = 0.0f;
+static auto last_frame = 0.0f;
 
 void glfw_error_callback(const int error, const char* description)
 {
@@ -152,9 +152,17 @@ int main()
 
 	while (!glfwWindowShouldClose(window))
 	{
-		const float current_time = static_cast<float>(glfwGetTime());
+		const auto current_time = static_cast<float>(glfwGetTime());
 		delta_time = current_time - last_frame;
 		last_frame = current_time;
+
+		static auto total_time = 0.0f;
+		total_time += delta_time;
+		if (total_time >= 1.0f)
+		{
+			std::cout << "FPS: " << (1.0f / delta_time) << '\n';
+			total_time = 0.0f;
+		}
 
 		process_input(window);
 
