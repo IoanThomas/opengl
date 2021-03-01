@@ -16,7 +16,6 @@ set(SOURCE_FILES
     opengl/vertex_buffer.h
     camera.cpp
     camera.h
-    camera_movement.h
     entity.cpp
     entity.h
     entity_renderer.cpp

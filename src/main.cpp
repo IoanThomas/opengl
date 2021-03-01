@@ -63,22 +63,22 @@ void process_input(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		cam.process_keyboard(camera_movement::forward, delta_time);
+		cam.process_keyboard(camera::movement::forward, delta_time);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		cam.process_keyboard(camera_movement::backward, delta_time);
+		cam.process_keyboard(camera::movement::backward, delta_time);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		cam.process_keyboard(camera_movement::left, delta_time);
+		cam.process_keyboard(camera::movement::left, delta_time);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		cam.process_keyboard(camera_movement::right, delta_time);
+		cam.process_keyboard(camera::movement::right, delta_time);
 	}
 }
 

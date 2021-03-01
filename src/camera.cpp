@@ -10,22 +10,22 @@ camera::camera(const glm::vec3& position, const float yaw, const float pitch)
 	update_vectors();
 }
 
-void camera::process_keyboard(const camera_movement direction, const float delta_time)
+void camera::process_keyboard(const movement direction, const float delta_time)
 {
 	const auto velocity = m_speed * delta_time;
 
 	switch (direction)
 	{
-	case camera_movement::forward:
+	case movement::forward:
 		m_position += m_front * velocity;
 		break;
-	case camera_movement::backward:
+	case movement::backward:
 		m_position -= m_front * velocity;
 		break;
-	case camera_movement::left:
+	case movement::left:
 		m_position -= m_right * velocity;
 		break;
-	case camera_movement::right:
+	case movement::right:
 		m_position += m_right * velocity;
 		break;
 	}
