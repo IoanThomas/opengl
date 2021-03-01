@@ -28,6 +28,8 @@ set(SOURCE_FILES
     model.h
     model_cache.cpp
     model_cache.h
+    point_light.cpp
+    point_light.h
     renderer.h
     scene.cpp
     scene.h

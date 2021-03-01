@@ -75,6 +75,7 @@ void camera::process_window_resized(const unsigned int window_width, const unsig
 {
 	m_window_width = window_width;
 	m_window_height = window_height;
+
 	update_projection();
 }
 
@@ -98,5 +99,6 @@ void camera::update_vectors()
 void camera::update_projection()
 {
 	const auto aspect_ratio = static_cast<float>(m_window_width) / m_window_height;
+
 	m_projection = glm::perspective(glm::radians(m_fov), aspect_ratio, near_plane, far_plane);
 }
