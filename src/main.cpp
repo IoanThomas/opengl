@@ -144,6 +144,8 @@ int main()
 	auto& sword_entity = renderer.create_entity("sword", glm::vec3(-1.0f, 0.0f, 0.0f));
 	auto& phone_entity = renderer.create_entity("phone", glm::vec3(0.0f, 0.0f, 0.0f));
 	auto& lantern_entity = renderer.create_entity("lantern", glm::vec3(1.0f, 0.0f, 0.0f));
+	auto& plane_entity = renderer.create_entity("plane", glm::vec3(0.0f, -1.0f, -1.0f));
+	auto& ball_entity = renderer.create_entity("ball", glm::vec3(1.5f, 0.0f, 1.0f));
 
 	sword_entity.scale = glm::vec3(0.1f);
 
@@ -151,6 +153,10 @@ int main()
 	phone_entity.rotation.x = 90.0f;
 
 	lantern_entity.scale = glm::vec3(0.5f);
+
+	plane_entity.rotation.x = 90.0f;
+
+	ball_entity.scale = glm::vec3(0.5f);
 
 	while (!glfwWindowShouldClose(window))
 	{

@@ -50,6 +50,8 @@ void main()
         total_specular += (specular_strength * light.colour) / attenuation_factor;
     }
     
+    total_diffuse = max(total_diffuse, 0.1);
+    
     vec4 diffuse_sample = texture(diffuse_texture, vertex_texture_coord);
     vec4 detail_sample = texture(detail_texture, vertex_texture_coord);
     

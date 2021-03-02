@@ -28,7 +28,7 @@ std::shared_ptr<model> model_cache::load_model(texture_cache& textures, const st
 	const auto detail_texture = textures.load_texture(model_path + "_se.png");
 
 	// TODO: Load shininess from file
-	const material material(diffuse_texture, detail_texture, 32.0f);
+	const material material(diffuse_texture, detail_texture, 64.0f);
 	const auto mod = std::make_shared<model>(std::move(vao), material);
 
 	m_models[model_name] = mod;

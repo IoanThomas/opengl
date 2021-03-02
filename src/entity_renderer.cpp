@@ -11,14 +11,19 @@ entity_renderer::entity_renderer()
 {
 	m_shader.bind();
 
-	for (unsigned int i = 0; i < max_lights; ++i)
+	for (unsigned int i = 0; i < max_lights - 3; ++i)
 	{
-		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].position", glm::vec3(1.0f));
-		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].colour", glm::vec3(0.25f));
-		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].attenuation", glm::vec3(1.0f, 0.0f, 0.0f));
+		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].position", glm::vec3(-2.0f + i, 1.0f, 1.0f));
+		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].colour", glm::vec3(1.0f));
+		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].attenuation", glm::vec3(1.0f, 0.01f, 0.002f));
 	}
 
-	m_shader.set_uniform<int>("num_lights", max_lights);
+	//m_shader.set_uniform<glm::vec3>("lights[0].colour", glm::vec3(1.0f, 0.0f, 0.0f));
+	//m_shader.set_uniform<glm::vec3>("lights[1].colour", glm::vec3(0.0f, 1.0f, 0.0f));
+	//m_shader.set_uniform<glm::vec3>("lights[2].colour", glm::vec3(0.0f, 0.0f, 1.0f));
+	//m_shader.set_uniform<glm::vec3>("lights[3].colour", glm::vec3(1.0f, 1.0f, 0.0f));
+
+	m_shader.set_uniform<int>("num_lights", max_lights - 3);
 
 	m_shader.unbind();
 }
