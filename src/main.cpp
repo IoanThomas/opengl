@@ -82,6 +82,16 @@ void process_input(GLFWwindow* window)
 	{
 		cam.process_keyboard(camera::movement::right, delta_time);
 	}
+
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
+		cam.process_keyboard(camera::movement::up, delta_time);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+	{
+		cam.process_keyboard(camera::movement::down, delta_time);
+	}
 }
 
 int main()

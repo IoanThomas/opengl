@@ -10,7 +10,9 @@ public:
 		forward,
 		backward,
 		left,
-		right
+		right,
+		up,
+		down
 	};
 
 	static constexpr auto near_plane = 0.1f;

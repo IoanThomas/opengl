@@ -29,6 +29,12 @@ void camera::process_keyboard(const movement direction, const float delta_time)
 	case movement::right:
 		m_position += m_right * velocity;
 		break;
+	case movement::up:
+		m_position += m_up * velocity;
+		break;
+	case movement::down:
+		m_position -= m_up * velocity;
+		break;
 	}
 }
 
