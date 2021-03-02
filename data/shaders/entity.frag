@@ -37,7 +37,7 @@ void main()
     {
         point_light light = lights[i];
         
-        vec3 light_position_norm = normalize(light.position);
+        vec3 light_position_norm = normalize(light.position - fragment_position);
         float distance = length(light.position);
         float attenuation_factor = light.attenuation.x + (light.attenuation.y * distance) + (light.attenuation.z * distance * distance);
         

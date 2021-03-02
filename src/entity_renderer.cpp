@@ -13,7 +13,8 @@ entity_renderer::entity_renderer()
 
 	for (unsigned int i = 0; i < max_lights - 3; ++i)
 	{
-		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].position", glm::vec3(-2.0f + i, 1.0f, 1.0f));
+		//m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].position", glm::vec3(-2.0f + i, 1.0f, 1.0f));
+		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].position", glm::vec3(-10.0f, 0.0f, 10.0f));
 		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].colour", glm::vec3(1.0f));
 		m_shader.set_uniform<glm::vec3>("lights[" + std::to_string(i) + "].attenuation", glm::vec3(1.0f, 0.01f, 0.002f));
 	}
