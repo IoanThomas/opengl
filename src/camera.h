@@ -24,7 +24,7 @@ public:
 
 	camera(const glm::vec3& position, const unsigned int window_width, const unsigned int window_height, const float fov = 45.0f);
 
-	void process_keyboard(const movement direction, const float delta_time);
+	void process_keyboard(const movement direction, const float modifier, const float delta_time);
 	void process_mouse_movement(const float offset_x, const float offset_y, const bool constrain_pitch = true);
 	void process_mouse_scroll(const float offset_y);
 	void process_window_resized(const unsigned int window_width, const unsigned int window_height);

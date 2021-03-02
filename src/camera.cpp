@@ -11,9 +11,9 @@ camera::camera(const glm::vec3& position, const unsigned int window_width, const
 	update_projection();
 }
 
-void camera::process_keyboard(const movement direction, const float delta_time)
+void camera::process_keyboard(const movement direction, const float modifier, const float delta_time)
 {
-	const auto velocity = speed * delta_time;
+	const auto velocity = speed * modifier * delta_time;
 
 	switch (direction)
 	{

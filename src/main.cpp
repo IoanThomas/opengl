@@ -63,34 +63,36 @@ void glfw_scroll_callback(GLFWwindow* window, const double offset_x, const doubl
 
 void process_input(GLFWwindow* window)
 {
+	const float modifier = (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) ? 10.0f : 1.0f;
+
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		cam.process_keyboard(camera::movement::forward, delta_time);
+		cam.process_keyboard(camera::movement::forward, modifier, delta_time);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		cam.process_keyboard(camera::movement::backward, delta_time);
+		cam.process_keyboard(camera::movement::backward, modifier, delta_time);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		cam.process_keyboard(camera::movement::left, delta_time);
+		cam.process_keyboard(camera::movement::left, modifier, delta_time);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		cam.process_keyboard(camera::movement::right, delta_time);
+		cam.process_keyboard(camera::movement::right, modifier, delta_time);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		cam.process_keyboard(camera::movement::up, delta_time);
+		cam.process_keyboard(camera::movement::up, modifier, delta_time);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 	{
-		cam.process_keyboard(camera::movement::down, delta_time);
+		cam.process_keyboard(camera::movement::down, modifier, delta_time);
 	}
 }
 
