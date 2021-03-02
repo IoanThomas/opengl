@@ -154,6 +154,7 @@ int main()
 
 	lantern_entity.scale = glm::vec3(0.5f);
 
+	plane_entity.scale = glm::vec3(10.0f);
 	plane_entity.rotation.x = 90.0f;
 
 	ball_entity.scale = glm::vec3(0.5f);
